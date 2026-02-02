@@ -3,8 +3,8 @@ package fr.epita.assistants.classics;
 public class Classics {
     /**
      * Computes the factorial of n.
-     * @param n the nth value to compute, negative values should return -1
      *
+     * @param n the nth value to compute, negative values should return -1
      * @return the long value of n!
      */
     public static long factorial(int n) {
@@ -36,7 +36,7 @@ public class Classics {
         return array[n];
     }
 
-    private static boolean isSpace(char c){
+    private static boolean isSpace(char c) {
         return c == ' ' || c == '\t';
     }
 
@@ -83,8 +83,7 @@ public class Classics {
             for (int j = i + 1; j < array.length; j++)
                 if (array[min] > array[j]) min = j;
 
-            if (min != i)
-            {
+            if (min != i) {
                 int tmp = array[i];
                 array[i] = array[min];
                 array[min] = tmp;
@@ -101,21 +100,18 @@ public class Classics {
         StringBuilder ret = new StringBuilder();
 
         int i = 0;
-        while (i < a.length() && i < b.length())
-        {
+        while (i < a.length() && i < b.length()) {
             ret.append(a.charAt(i));
             ret.append(b.charAt(i));
             i++;
         }
 
-        while (i < a.length())
-        {
+        while (i < a.length()) {
             ret.append(a.charAt(i));
             i++;
         }
 
-        while (i < b.length())
-        {
+        while (i < b.length()) {
             ret.append(b.charAt(i));
             i++;
         }
