@@ -1,7 +1,6 @@
 package fr.epita.assistants.myset;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class IntegerSet {
     ArrayList<Integer> base;
@@ -30,12 +29,16 @@ public class IntegerSet {
     }
 
     public void insert(Integer i) {
-        base.add(findPlace(i), i);
+        int place = findPlace(i);
+        if (base.size() > place && i == base.get(place))
+            return;
+
+        base.add(place, i);
     }
 
     public void remove(Integer i) {
         int place = findPlace(i);
-        if (!Objects.equals(base.get(place), i))
+        if (i.intValue() != base.get(place).intValue())
             return;
 
         base.remove(place);
@@ -62,10 +65,44 @@ public class IntegerSet {
     }
 
     public static IntegerSet intersection(IntegerSet a, IntegerSet b) {
-        return null;
+        IntegerSet res = new IntegerSet();
+
+        int size1 = a.size();
+        int size2 = b.size();
+
+        for (int i = 0, j = 0; i < size1 && j < size2;) {
+            Integer aFirst = a.base.get(i);
+            Integer bFirst = b.base.get(j);
+            if (aFirst == bFirst) {
+                res.insert(a.base.get(i));
+                i++;
+                j++;
+            } else if (aFirst < bFirst) {
+                i++;
+                if (i >= size1) break;
+            } else {
+                j++;
+                if (j >= size2) break;
+            }
+
+        }
+
+        return res;
     }
 
     public static IntegerSet union(IntegerSet a, IntegerSet b) {
-        return null;
+        IntegerSet res = new IntegerSet();
+
+        int size = a.size();
+        for (int i = 0; i < size; i++) {
+            res.insert(a.base.get(i));
+        }
+
+        size = b.size();
+        for (int i = 0; i < size; i++) {
+            res.insert(b.base.get(i));
+        }
+
+        return res;
     }
 }
