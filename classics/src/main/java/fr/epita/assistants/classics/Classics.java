@@ -8,12 +8,9 @@ public class Classics {
      * @return the long value of n!
      */
     public static long factorial(int n) {
-        if (n < 0)
-            return -1;
-        else if (n <= 1)
-            return 1;
-        else
-            return n * factorial(n - 1);
+        if (n < 0) return -1;
+        if (n <= 1) return 1;
+        return n * factorial(n - 1);
     }
 
     /**
@@ -26,13 +23,16 @@ public class Classics {
         if (n < 0) return -1;
         if (n == 0) return 0;
         if (n <= 2) return 1;
+
         long[] array = new long[n + 1];
+
         array[0] = 0;
         array[1] = 1;
         array[2] = 1;
-        for (int i = 3; i <= n; i++) {
-            array[i] = array[i-1] + array[i-2] + array[i-3];
-        }
+
+        for (int i = 3; i <= n; i++)
+            array[i] = array[i - 1] + array[i - 2] + array[i - 3];
+
         return array[n];
     }
 
@@ -48,19 +48,26 @@ public class Classics {
      */
     public static boolean isPalindrome(String word) {
         if (word == null) return false;
+
         word = word.toLowerCase();
+
         int len = word.length();
         for (int i = 0, j = len - 1; i < j; i++, j--) {
             while (i < j && isSpace(word.charAt(i)))
                 i++;
+
             while (i < j && isSpace(word.charAt(j)))
                 j--;
+
             if (i >= j)
                 break;
+
             char a = word.charAt(i);
             char b = word.charAt(j);
+
             if (a != b) return false;
         }
+
         return true;
     }
 
@@ -72,8 +79,10 @@ public class Classics {
     public static void insertionSort(int[] array) {
         for (int i = 0; i < array.length; i++) {
             int min = i;
+
             for (int j = i + 1; j < array.length; j++)
                 if (array[min] > array[j]) min = j;
+
             if (min != i)
             {
                 int tmp = array[i];
@@ -90,6 +99,7 @@ public class Classics {
      */
     public static String combine(String a, String b) {
         StringBuilder ret = new StringBuilder();
+
         int i = 0;
         while (i < a.length() && i < b.length())
         {
@@ -109,6 +119,7 @@ public class Classics {
             ret.append(b.charAt(i));
             i++;
         }
+
         return ret.toString();
     }
 }
