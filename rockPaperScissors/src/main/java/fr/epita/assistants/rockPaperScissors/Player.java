@@ -1,7 +1,7 @@
 package fr.epita.assistants.rockPaperScissors;
 
 public final class Player {
-    String name;
+    final String name;
     int choice;
 
     public Player(String name) {

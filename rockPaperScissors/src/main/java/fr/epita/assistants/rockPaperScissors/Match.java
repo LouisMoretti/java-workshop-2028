@@ -2,7 +2,7 @@ package fr.epita.assistants.rockPaperScissors;
 
 import java.lang.module.FindException;
 
-public class Match {
+public final class Match {
     private static int matchCount;
     private final int currentMatchNumber;
     final String player1;
@@ -10,9 +10,9 @@ public class Match {
     final HandShape handShape1;
     final HandShape handShape2;
 
-    public Match(int currentMatchNumber, String player1, String player2, HandShape handShape1, HandShape handShape2) {
+    public Match(String player1, String player2, HandShape handShape1, HandShape handShape2) {
+        this.currentMatchNumber = matchCount;
         matchCount++;
-        this.currentMatchNumber = currentMatchNumber;
         this.player1 = player1;
         this.player2 = player2;
         this.handShape1 = handShape1;
