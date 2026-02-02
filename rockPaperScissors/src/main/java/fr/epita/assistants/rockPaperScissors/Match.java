@@ -3,7 +3,7 @@ package fr.epita.assistants.rockPaperScissors;
 import java.lang.module.FindException;
 
 public final class Match {
-    private static int matchCount = 0;
+    private static int matchCount;
     private final int currentMatchNumber;
     final String player1;
     final String player2;
@@ -32,7 +32,7 @@ public final class Match {
     }
 
     public void runMatch() {
-        System.out.printf("Let's start match number %d!\n", matchCount);
+        System.out.printf("Let's start match number %d!\n", currentMatchNumber);
         System.out.print("Rock, Paper, Scissors!\n");
         System.out.printf("%s is playing: %s\n", player1, handShape1.getName());
         System.out.printf("%s is playing: %s\n", player2, handShape2.getName());
