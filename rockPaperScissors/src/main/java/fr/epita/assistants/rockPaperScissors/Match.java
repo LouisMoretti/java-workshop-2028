@@ -27,7 +27,7 @@ public class Match {
         return currentMatchNumber;
     }
 
-    public void resetMatchCount() {
+    public static void resetMatchCount() {
         matchCount = 0;
     }
 
