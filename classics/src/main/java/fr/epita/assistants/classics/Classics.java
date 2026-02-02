@@ -26,7 +26,7 @@ public class Classics {
         if (n < 0) return -1;
         if (n == 0) return 0;
         if (n <= 2) return 1;
-        int[] array = new int[n + 1];
+        long[] array = new long[n + 1];
         array[0] = 0;
         array[1] = 1;
         array[2] = 1;
