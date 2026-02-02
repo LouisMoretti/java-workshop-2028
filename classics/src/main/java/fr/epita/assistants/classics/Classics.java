@@ -40,6 +40,7 @@ public class Classics {
      */
     public static boolean isPalindrome(String word) {
         if (word == null) return false;
+        word = word.toLowerCase();
         int len = word.length();
         for (int i = 0, j = len - 1; i < j; i++, j--) {
             while (i < j && isSpace(word.charAt(i)))
@@ -50,8 +51,6 @@ public class Classics {
                 break;
             char a = word.charAt(i);
             char b = word.charAt(j);
-            if (a > 'A') a -= (char) ('A' - 'a');
-            if (b > 'A') b -= (char) ('A' - 'a');
             if (a != b) return false;
         }
         return true;
@@ -96,7 +95,7 @@ public class Classics {
             ret.append(a.charAt(i));
             i++;
         }
-        
+
         while (i < b.length())
         {
             ret.append(b.charAt(i));
