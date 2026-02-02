@@ -11,7 +11,7 @@ public class Main {
           Replace this String to try other exceptions.
           Hint: this one should trigger an ShortStringException.
          */
-        String exception = "";
+        String exception = "ab";
 
         try {
             Pitcher.throwException(exception);

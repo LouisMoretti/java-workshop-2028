@@ -1,6 +1,19 @@
 package fr.epita.assistants.throwback;
 
 public class Pitcher {
+    private static boolean checkInt(String message) {
+        int i = 0;
+        if (message.charAt(0) == '-')
+            i++;
+        for (; i < message.length(); i++) {
+            char c = message.charAt(i);
+            if (!(c >= '0' && c <= '9'))
+                return false;
+        }
+
+        return true;
+    }
+
     private static boolean checkSentence(String message) {
         for (int i = 0; i < message.length(); i++) {
             char c = message.charAt(i);
@@ -15,10 +28,11 @@ public class Pitcher {
             LongStringException, ShortStringException,
             PositiveIntegerException, NegativeIntegerException,
             UnknownException {
-        int x = Integer.parseInt(message);
-        if (x != 0 || message.equals("0")) {
-            if (x >= 0) throw new PositiveIntegerException(message);
-            else throw new NegativeIntegerException(message);
+        if (message == null || message.isEmpty()) {
+            throw new UnknownException(message);
+        } else if (checkInt(message)) {
+            if (message.charAt(0) == '-') throw new NegativeIntegerException(message);
+            else throw new PositiveIntegerException(message);
         } else if (checkSentence(message)) {
             if (message.length() >= 100) throw new LongStringException(message);
             else throw new ShortStringException(message);
