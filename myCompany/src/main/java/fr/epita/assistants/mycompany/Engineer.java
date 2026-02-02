@@ -7,6 +7,6 @@ public class Engineer extends Employee{
 
     @Override
     public void sayMyJob() {
-        System.out.printf("%s %s is a engineer.\n", super.getFirstName(), super.getLastName());
+        System.out.printf("%s %s is an engineer.\n", super.getFirstName(), super.getLastName());
     }
 }
