@@ -11,7 +11,7 @@ public class Soldier extends Combatant {
         scream = "No pity for losers!";
     }
 
-    Soldier(int health, int damage, String scream) {
+    protected Soldier(int health, int damage, String scream) {
         this.health = health;
         this.damage = damage;
         this.scream = scream;
