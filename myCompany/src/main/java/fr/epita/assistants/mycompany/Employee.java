@@ -20,4 +20,10 @@ public abstract class Employee {
     public String toString() {
         return firstName + ' ' + lastName;
     }
+
+    public void sayMyName() {
+        System.out.printf("My name is %s %s.", firstName, lastName);
+    }
+
+    public abstract void sayMyJob();
 }
