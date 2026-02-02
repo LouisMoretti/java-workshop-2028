@@ -5,6 +5,8 @@ public class Pitcher {
         int i = 0;
         if (message.charAt(0) == '-')
             i++;
+        if (i >= message.length())
+            return false;
         for (; i < message.length(); i++) {
             char c = message.charAt(i);
             if (!(c >= '0' && c <= '9'))
@@ -29,7 +31,7 @@ public class Pitcher {
             PositiveIntegerException, NegativeIntegerException,
             UnknownException {
         if (message == null || message.isEmpty()) {
-            throw new UnknownException(message);
+            throw new ShortStringException(message);
         } else if (checkInt(message)) {
             if (message.charAt(0) == '-') throw new NegativeIntegerException(message);
             else throw new PositiveIntegerException(message);
