@@ -39,6 +39,6 @@ public class User implements MultiNotificationSender {
 
     @Override
     public List<NotificationSender> getNotifiers() {
-        return List.of();
+        return notifiers;
     }
 }
