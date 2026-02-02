@@ -3,7 +3,7 @@ package fr.epita.assistants.rockPaperScissors;
 import java.lang.module.FindException;
 
 public final class Match {
-    private static int matchCount;
+    private static int matchCount = 0;
     private final int currentMatchNumber;
     final String player1;
     final String player2;
