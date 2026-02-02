@@ -1,5 +1,6 @@
 package fr.epita.assistants.mycompany;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,6 +11,8 @@ public class Company {
 
     public Company(String name) {
         this.name = name;
+        employees = new ArrayList<>();
+        employeeManagement = new HashMap<>();
     }
 
     public int size() {

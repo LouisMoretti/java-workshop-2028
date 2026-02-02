@@ -22,7 +22,7 @@ public abstract class Employee {
     }
 
     public void sayMyName() {
-        System.out.printf("My name is %s %s.", firstName, lastName);
+        System.out.printf("My name is %s %s.\n", firstName, lastName);
     }
 
     public abstract void sayMyJob();

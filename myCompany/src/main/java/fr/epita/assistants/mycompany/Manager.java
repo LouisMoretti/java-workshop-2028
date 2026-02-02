@@ -7,6 +7,6 @@ public class Manager extends Employee{
 
     @Override
     public void sayMyJob() {
-        System.out.printf("%s %s is a manager.", super.getFirstName(), super.getLastName());
+        System.out.printf("%s %s is a manager.\n", super.getFirstName(), super.getLastName());
     }
 }
