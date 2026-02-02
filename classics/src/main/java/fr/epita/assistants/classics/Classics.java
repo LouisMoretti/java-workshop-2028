@@ -10,9 +10,7 @@ public class Classics {
     public static long factorial(int n) {
         if (n < 0)
             return -1;
-        else if (n == 0)
-            return 0;
-        else if (n == 1)
+        else if (n <= 1)
             return 1;
         else
             return n * factorial(n - 1);
@@ -26,8 +24,12 @@ public class Classics {
      */
     public static long tribonacci(int n) {
         if (n == 0) return 0;
-        if (n == 1 || n == 2) return 1;
+        if (n <= 2) return 1;
         return tribonacci(n - 3) + tribonacci(n - 2) + tribonacci(n - 1);
+    }
+
+    private static boolean isSpace(char c){
+        return c == ' ' || c == '\t';
     }
 
     /**
@@ -37,9 +39,21 @@ public class Classics {
      * @return true if the word is a palindrome, false otherwise.
      */
     public static boolean isPalindrome(String word) {
+        if (word == null) return false;
         int len = word.length();
-        for (int i = 0, j = len - 1; i < j; i++, j--)
-            if (word.charAt(i) != word.charAt(j)) return false;
+        for (int i = 0, j = len - 1; i < j; i++, j--) {
+            while (i < j && isSpace(word.charAt(i)))
+                i++;
+            while (i < j && isSpace(word.charAt(j)))
+                j--;
+            if (i >= j)
+                break;
+            char a = word.charAt(i);
+            char b = word.charAt(j);
+            if (a > 'A') a -= (char) ('A' - 'a');
+            if (b > 'A') b -= (char) ('A' - 'a');
+            if (a != b) return false;
+        }
         return true;
     }
 
@@ -50,14 +64,14 @@ public class Classics {
      */
     public static void insertionSort(int[] array) {
         for (int i = 0; i < array.length; i++) {
-            int max = i;
+            int min = i;
             for (int j = i + 1; j < array.length; j++)
-                if (array[max] < array[j]) max = j;
-            if (max != i)
+                if (array[min] > array[j]) min = j;
+            if (min != i)
             {
                 int tmp = array[i];
-                array[i] = array[max];
-                array[max] = tmp;
+                array[i] = array[min];
+                array[min] = tmp;
             }
         }
     }
@@ -68,8 +82,26 @@ public class Classics {
      * For instance, combine("abc", "def") returns "adbecf"
      */
     public static String combine(String a, String b) {
-        StringBuilder ret = new StringBuilder(a);
-        ret.append(b);
+        StringBuilder ret = new StringBuilder();
+        int i = 0;
+        while (i < a.length() && i < b.length())
+        {
+            ret.append(a.charAt(i));
+            ret.append(b.charAt(i));
+            i++;
+        }
+
+        while (i < a.length())
+        {
+            ret.append(a.charAt(i));
+            i++;
+        }
+        
+        while (i < b.length())
+        {
+            ret.append(b.charAt(i));
+            i++;
+        }
         return ret.toString();
     }
 }
