@@ -11,8 +11,8 @@ public final class Match {
     final HandShape handShape2;
 
     public Match(String player1, String player2, HandShape handShape1, HandShape handShape2) {
-        this.currentMatchNumber = matchCount;
         matchCount++;
+        this.currentMatchNumber = matchCount;
         this.player1 = player1;
         this.player2 = player2;
         this.handShape1 = handShape1;
