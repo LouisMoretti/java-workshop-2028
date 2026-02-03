@@ -5,7 +5,10 @@ import java.util.stream.Stream;
 
 public class Streamer {
     public Stream<Pair<Integer, String>> validator(Stream<Pair<Integer, String>> stream) {
-        return stream.filter(integerStringPair -> integerStringPair.getKey() <= 100 && integerStringPair.getKey() >= 0).filter(integerStringPair -> integerStringPair.getValue().matches("[^._]*(.|_)[^._]*"));
+        return stream.filter(integerStringPair -> integerStringPair.getKey() <= 100
+                        && integerStringPair.getKey() >= 0)
+                .filter(integerStringPair ->
+                        integerStringPair.getValue().matches("[^._]+(.|_)[^._]+"));
     }
 
     public Stream<Pair<Integer, String>> orderGrade(Stream<Pair<Integer, String>> stream) {
@@ -18,12 +21,13 @@ public class Streamer {
         });
     }
 
-    private static Pair<Integer, String> _lowercase(Pair<Integer, String> pair) {
-        return new Pair<>(pair.getKey(), pair.getValue().toLowerCase());
-    }
-
     public Stream<Pair<Integer, String>> lowercase(Stream<Pair<Integer, String>> stream) {
-        return stream.map(Streamer::_lowercase);
+        return stream.map(integerStringPair -> {
+            if (integerStringPair.getValue().toLowerCase() != integerStringPair.getValue()) {
+                return new Pair<>(integerStringPair.getKey() / 2, integerStringPair.getValue().toLowerCase());
+            }
+            return integerStringPair;
+        });
     }
 
     public Optional<Pair<Integer, String>> headOfTheClass(Stream<Pair<Integer, String>> stream) {
@@ -53,7 +57,7 @@ public class Streamer {
                     int len = integerStringPair.getValue().length();
                     String base = integerStringPair.getValue();
                     String encrypted = base.substring(len / 2 + 1, len) + base.substring(0, len / 2 + 1);
-                    return new Pair<>(integerStringPair.getKey(), integerStringPair.getValue());
+                    return new Pair<>(integerStringPair.getKey(), encrypted);
                 }
         );
     }
