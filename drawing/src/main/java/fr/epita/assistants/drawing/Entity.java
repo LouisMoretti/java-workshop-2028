@@ -12,4 +12,9 @@ public abstract class Entity implements Drawable {
     public long getId() {
         return id;
     }
+
+    @Override
+    public void draw() {
+
+    }
 }
