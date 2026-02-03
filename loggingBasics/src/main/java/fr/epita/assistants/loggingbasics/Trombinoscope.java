@@ -25,7 +25,7 @@ public class Trombinoscope {
         Long oldPhotoId = map.put(name,
                 photoId);
 
-        LOGGER.trace("Added entry for person \"" + name + '"');
+        LOGGER.trace((oldPhotoId == null ? "Added" : "Updated") + " entry for person \"" + name + '"');
 
         return oldPhotoId;
     }
