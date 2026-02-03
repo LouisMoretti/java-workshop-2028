@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode(of = {"name","nickname"})
 @ToString
 public class Horse {
-    @Setter public String name;
-    @ToString.Exclude @Setter public String nickname;
-    public int speed;
+    @Setter private String name;
+    @ToString.Exclude @Setter private String nickname;
+    private int speed;
 }
