@@ -1,5 +1,7 @@
 package fr.epita.assistants.embedfiles;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public class DisplayEmbedFile {
@@ -10,7 +12,18 @@ public class DisplayEmbedFile {
     }
 
     public Optional<String> display() {
-        String ret = String.valueOf(getClass().getClassLoader().getResource(filename));
-        return Optional.ofNullable(ret);
+        InputStream resource = getClass().getClassLoader().getResourceAsStream(filename);
+        if (resource == null)
+            return Optional.empty();
+        StringBuilder retBuilder = new StringBuilder();
+        try (Reader reader = new BufferedReader(new InputStreamReader(resource, StandardCharsets.UTF_8))) {
+            int c = 0;
+            while ((c = reader.read()) != -1) {
+                retBuilder.append((char) c);
+            }
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+        return Optional.of(retBuilder.toString());
     }
 }
