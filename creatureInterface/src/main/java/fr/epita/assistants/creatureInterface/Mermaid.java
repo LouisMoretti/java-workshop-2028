@@ -74,7 +74,7 @@ public class Mermaid extends Creature implements Swimmer, Magical, Speaker {
             return;
 
         if (spell.getSpellType() == SpellType.FIRE) {
-            System.out.printf("%s cannot learn %s spells.\n", name, spell.name());
+            System.out.printf("Mermaid cannot learn %s spells.\n", spell.name());
         } else {
             spells.add(spell);
         }
@@ -143,7 +143,7 @@ public class Mermaid extends Creature implements Swimmer, Magical, Speaker {
      */
     @Override
     public void swim() {
-        System.out.printf("I'm a %s and I'm swimming.", this.getClass().getSimpleName());
+        System.out.printf("I'm a %s and I'm swimming.\n", this.getClass().getSimpleName());
         isSwimming = true;
     }
 
