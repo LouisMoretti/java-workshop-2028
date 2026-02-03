@@ -34,7 +34,7 @@ public abstract class BaseHuman extends Creature implements Swimmer, Speaker {
      */
     @Override
     public void swim() {
-        System.out.printf("I'm a %s and I'm swimming.", this.getClass().getSimpleName());
+        System.out.printf("I'm a %s and I'm swimming.\n", this.getClass().getSimpleName());
         isSwimming = true;
     }
 

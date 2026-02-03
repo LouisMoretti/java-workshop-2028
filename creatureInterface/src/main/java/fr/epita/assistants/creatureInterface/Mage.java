@@ -70,7 +70,7 @@ public class Mage extends BaseHuman implements Magical{
     public void castSpell(Spell spell) {
         if (!spells.contains(spell)) {
             System.out.printf("%s does not know %s.\n", name, spell.name());
-        } else if (spell.getManaCost() >= mana) {
+        } else if (spell.getManaCost() > mana) {
             System.out.printf("%s does not have enough mana.\n", name);
         } else {
             mana -= spell.getManaCost();

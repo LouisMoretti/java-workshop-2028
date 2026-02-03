@@ -23,13 +23,17 @@ public class Mermaid extends Creature implements Swimmer, Magical, Speaker {
      * Its initial mana is 0.
      */
     public Mermaid(BaseHuman baseHuman, Fish fish) {
-        super(baseHuman.getName().substring(0, 1).toUpperCase() + baseHuman.getName().substring(1) + fish.getName().toLowerCase());
+        super(baseHuman.getName().substring(0, 1).toUpperCase() + baseHuman.getName().substring(1).toLowerCase() + fish.getName().toLowerCase());
 
         this.mana = 0;
         this.spells = new ArrayList<>();
         if (baseHuman instanceof Mage) {
             for (Spell spell : ((Mage) baseHuman).getSpells()) {
-                addSpell(spell);
+                if (spell.getSpellType() == SpellType.FIRE) {
+                    System.out.printf("%s forgot the spell %s.\n", name, spell.name());
+                } else {
+                    addSpell(spell);
+                }
             }
         }
 
@@ -70,10 +74,10 @@ public class Mermaid extends Creature implements Swimmer, Magical, Speaker {
             return;
 
         if (spell.getSpellType() == SpellType.FIRE) {
-            System.out.printf("%s forgot the spell %s.\n", name, spell.name());
+            System.out.printf("%s cannot learn %s spells.\n", name, spell.name());
+        } else {
+            spells.add(spell);
         }
-
-        spells.add(spell);
     }
 
     /**
@@ -125,7 +129,11 @@ public class Mermaid extends Creature implements Swimmer, Magical, Speaker {
      */
     @Override
     public void greet(Speaker contact) {
-        Speaker.super.greet(contact);
+        if (contact instanceof Mermaid) {
+            System.out.printf("Dear " + ((Mermaid) contact).name + ", welcome.\n");
+        } else {
+            Speaker.super.greet(contact);
+        }
     }
 
     private boolean isSwimming = false;
