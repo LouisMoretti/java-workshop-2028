@@ -8,7 +8,7 @@ public class Streamer {
         return stream.filter(integerStringPair -> integerStringPair.getKey() <= 100
                         && integerStringPair.getKey() >= 0)
                 .filter(integerStringPair ->
-                        integerStringPair.getValue().matches("[^._]+(.|_)[^._]+"));
+                        integerStringPair.getValue().matches("[^._]+[._][^._]+"));
     }
 
     public Stream<Pair<Integer, String>> orderGrade(Stream<Pair<Integer, String>> stream) {
@@ -56,7 +56,7 @@ public class Streamer {
         return stream.map(integerStringPair -> {
                     int len = integerStringPair.getValue().length();
                     String base = integerStringPair.getValue();
-                    String encrypted = base.substring(len / 2 + 1, len) + base.substring(0, len / 2 + 1);
+                    String encrypted = base.substring(len / 2, len) + base.substring(0, len / 2);
                     return new Pair<>(integerStringPair.getKey(), encrypted);
                 }
         );
