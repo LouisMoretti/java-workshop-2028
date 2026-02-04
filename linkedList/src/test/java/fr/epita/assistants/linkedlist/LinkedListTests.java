@@ -43,6 +43,10 @@ public class LinkedListTests {
         list.insert(3);
         list.insert(2);
         list.insert(1);
-        assertNull(list.remove(12), "Invalid return value of remove()");
+//        list.remove(1);
+        list.remove(2);
+        list.remove(3);
+        list.remove(4);
+        assertNull(list.remove(1), "Invalid return value of remove()");
     }
 }

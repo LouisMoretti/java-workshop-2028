@@ -92,7 +92,7 @@ public class LinkedList<T extends Comparable<T>> {
 
         if (HEAD.element.equals(e)) {
             T ret = HEAD.element;
-            HEAD = null;
+            HEAD = HEAD.next;
 
             size--;
             return ret;
