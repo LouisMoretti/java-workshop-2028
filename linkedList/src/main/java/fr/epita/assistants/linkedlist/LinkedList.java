@@ -22,9 +22,15 @@ public class LinkedList<T extends Comparable<T>> {
     public void insert(T e) {
         if (element == null) {
             element = e;
+        } else if (next == null) {
+            next = new LinkedList<>();
+            next.insert(e);
+        } else if (next.element.compareTo(e) > 0){
+            LinkedList<T> tmp = new LinkedList<>();
+            tmp.element = e;
+            tmp.next = next;
+            next = tmp;
         } else {
-            if (next == null)
-                next = new LinkedList<>();
             next.insert(e);
         }
     }

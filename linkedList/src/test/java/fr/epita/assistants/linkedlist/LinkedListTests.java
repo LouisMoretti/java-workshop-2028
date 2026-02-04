@@ -34,5 +34,4 @@ public class LinkedListTests {
         list.insert(4);
         assertNull(list.remove(12), "Invalid return value of remove()");
     }
-    // add your own tests here
 }
