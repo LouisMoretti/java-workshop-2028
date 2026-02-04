@@ -34,7 +34,7 @@ public class MyRecursiveTask extends RecursiveTask<Double> {
             double ret = 0.;
             for (int i = xLowerBound; i < xUpperBound; i++) {
                 for (int j = yLowerBound; j < yUpperBound; j++) {
-                    ret += matrix[i][j];
+                    ret += matrix[j][i];
                 }
             }
 

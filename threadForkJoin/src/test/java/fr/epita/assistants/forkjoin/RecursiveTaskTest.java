@@ -16,7 +16,7 @@ public class RecursiveTaskTest {
                 new double[]{10, 52, 100, 50, 74, 25},
                 new double[]{10, 52, 100, 50, 74, 25},
                 new double[]{10, 52, 100, 50, 74, 25},
-                new double[]{10, 52, 100, 50, 74, 25}
+//                new double[]{10, 52, 100, 50, 74, 25}
         };
         double expected = 51.83;
 
@@ -31,14 +31,14 @@ public class RecursiveTaskTest {
     }
 
     @Test
-    void exampleOneMatrix() {
+    void oneMatrix() {
         // Create a Matrix
         double[][] matrix = new double[][]{
                 new double[]{1}
         };
-        double expected = 1;
+        double expected = 1.;
 
-        MyRecursiveTask mrt = new MyRecursiveTask(matrix, 0, matrix[0].length, 0, matrix.length);
+        MyRecursiveTask mrt = new MyRecursiveTask(matrix, 0, 1, 0, 1);
 
         // Fork and join task
         mrt.fork();
