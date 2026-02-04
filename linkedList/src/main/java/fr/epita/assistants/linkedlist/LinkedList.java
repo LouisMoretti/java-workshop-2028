@@ -66,7 +66,7 @@ public class LinkedList<T extends Comparable<T>> {
      * @throws IndexOutOfBoundsException if the given index is invalid.
      **/
     public T get(int i) {
-        if (i >= size) {
+        if (i >= size || i < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -86,6 +86,10 @@ public class LinkedList<T extends Comparable<T>> {
      * @return returns the element that has been removed or null
      **/
     public T remove(T e) {
+        if (HEAD == null || e == null) {
+            return null;
+        }
+
         if (HEAD.element.equals(e)) {
             T ret = HEAD.element;
             HEAD = null;
