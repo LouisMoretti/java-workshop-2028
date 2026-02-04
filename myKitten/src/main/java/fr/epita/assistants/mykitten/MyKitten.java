@@ -3,10 +3,8 @@ package fr.epita.assistants.mykitten;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MyKitten {
@@ -35,7 +33,7 @@ public class MyKitten {
      */
     public void replaceByMiaou(String wordToReplace) {
         AtomicInteger n = new AtomicInteger(0);
-        streamContent.map(line ->
+        streamContent = streamContent.map(line ->
         {
             return String.format("%d %s", n.incrementAndGet(), line.replaceAll(wordToReplace, "miaou"));
         });
