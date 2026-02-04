@@ -1,15 +1,31 @@
 package fr.epita.assistants.linkedlist;
 
 public class LinkedList<T extends Comparable<T>> {
-    T element;
-    LinkedList<T> next;
+
+    private static class Node<T extends Comparable<T>> {
+        T element;
+        Node<T> next;
+
+        public Node(T element) {
+            this.element = element;
+            next = null;
+        }
+
+        public Node(T element, Node<T> next) {
+            this.element = element;
+            this.next = next;
+        }
+    }
+
+    Node<T> HEAD;
+    int size;
 
     /**
      * Initializes the list.
      **/
     public LinkedList() {
-        element = null;
-        next = null;
+        HEAD = null;
+        size = 0;
     }
 
     /**
@@ -20,19 +36,24 @@ public class LinkedList<T extends Comparable<T>> {
      * @param e Element to be inserted
      **/
     public void insert(T e) {
-        if (element == null) {
-            element = e;
-        } else if (next == null) {
-            next = new LinkedList<>();
-            next.insert(e);
-        } else if (next.element.compareTo(e) > 0){
-            LinkedList<T> tmp = new LinkedList<>();
-            tmp.element = e;
-            tmp.next = next;
-            next = tmp;
-        } else {
-            next.insert(e);
+        size++;
+
+        if (HEAD == null) {
+            HEAD = new Node<>(e);
         }
+
+        if (HEAD.element.compareTo(e) > 0) {
+            HEAD = new Node<>(e, HEAD);
+        }
+
+        Node<T> tmp = HEAD;
+        while (tmp.next != null) {
+            if (tmp.next.element.compareTo(e) > 0)
+                break;
+            tmp = tmp.next;
+        }
+
+        tmp.next = new Node<>(e, tmp.next);
     }
 
     /**
@@ -43,15 +64,16 @@ public class LinkedList<T extends Comparable<T>> {
      * @throws IndexOutOfBoundsException if the given index is invalid.
      **/
     public T get(int i) {
-        if (i == 0) {
-            if (element == null)
-                throw new IndexOutOfBoundsException();
-            return element;
-        } else if (next == null) {
+        if (i >= size) {
             throw new IndexOutOfBoundsException();
-        } else {
-            return next.get(i - 1);
         }
+
+        Node<T> tmp = HEAD;
+        for (int j = 0; j < i; j++) {
+            tmp = tmp.next;
+        }
+
+        return tmp.element;
     }
 
     /**
@@ -62,19 +84,28 @@ public class LinkedList<T extends Comparable<T>> {
      * @return returns the element that has been removed or null
      **/
     public T remove(T e) {
-        if (element == null)
-            return null;
+        if (HEAD.element.equals(e)) {
+            T ret = HEAD.element;
+            HEAD = null;
 
-        if (element == e) {
-            element = next == null ? null : next.element;
-            next = next == null ? null : next.next;
-            return e;
+            size--;
+            return ret;
         }
 
-        if (next == null)
-            return null;
+        Node<T> tmp = HEAD;
+        while (tmp.next != null && !tmp.next.element.equals(e)) {
+            tmp = tmp.next;
+        }
 
-        return next.remove(e);
+        if (tmp.next == null) {
+            return null;
+        }
+
+        T ret = tmp.next.element;
+        tmp.next = tmp.next.next;
+
+        size--;
+        return ret;
     }
 
     /**
@@ -83,22 +114,13 @@ public class LinkedList<T extends Comparable<T>> {
      * @return Number of elements in the list
      **/
     public int size() {
-        if (element == null) {
-            return 0;
-        } else if (next == null) {
-            return 1;
-        } else {
-            return 1 + next.size();
-        }
+        return size;
     }
 
     /**
      * Removes all elements from the list.
      **/
     public void clear() {
-        if (next != null)
-            next.clear();
-        element = null;
-        next = null;
+        HEAD = null;
     }
 }

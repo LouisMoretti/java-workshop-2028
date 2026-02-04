@@ -34,4 +34,15 @@ public class LinkedListTests {
         list.insert(4);
         assertNull(list.remove(12), "Invalid return value of remove()");
     }
+
+    @Test
+    @Timeout(value = 10, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
+    public void sorted() {
+        LinkedList<Integer> list = new LinkedList<>();
+        list.insert(4);
+        list.insert(3);
+        list.insert(2);
+        list.insert(1);
+        assertNull(list.remove(12), "Invalid return value of remove()");
+    }
 }
