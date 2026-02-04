@@ -40,10 +40,12 @@ public class LinkedList<T extends Comparable<T>> {
 
         if (HEAD == null) {
             HEAD = new Node<>(e);
+            return;
         }
 
         if (HEAD.element.compareTo(e) > 0) {
             HEAD = new Node<>(e, HEAD);
+            return;
         }
 
         Node<T> tmp = HEAD;
@@ -122,5 +124,6 @@ public class LinkedList<T extends Comparable<T>> {
      **/
     public void clear() {
         HEAD = null;
+        size = 0;
     }
 }

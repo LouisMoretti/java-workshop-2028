@@ -98,6 +98,15 @@ public class MatrixTests {
     }
 
     @Test
+    void testMatrixEquals5() {
+        int[][] rawMatix1 = {{1}};
+
+        Matrix matrix1 = new Matrix(rawMatix1);
+        Matrix matrix2 = new Matrix(null);
+        assert (!matrix1.equals(matrix2));
+    }
+
+    @Test
     void testMatrixMultiply1() {
         int[][] rawMatix = {
                 {1, 1},
