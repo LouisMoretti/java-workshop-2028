@@ -49,8 +49,7 @@ public class Company {
 
         if (err) return false;
 
-        System.out.printf("%s %s %s\n", e.getFirstName(), e.getLastName(), !employeeManagement.containsKey(e) ? "now " +
-                "now has a manager." : "has a new manager.");
+        System.out.printf("%s %s %s\n", e.getFirstName(), e.getLastName(), !employeeManagement.containsKey(e) ? "now has a manager." : "has a new manager.");
 
         employeeManagement.put(e, m);
 
@@ -60,10 +59,16 @@ public class Company {
     public void printManager(Employee e) {
         if (employeeManagement.containsKey(e)) {
             Manager m = employeeManagement.get(e);
-            System.out.printf("%s %s manages %s %s.", m.getFirstName(), m.getLastName(), e.getFirstName(),
+            System.out.printf("%s %s manages %s %s.\n", m.getFirstName(), m.getLastName(), e.getFirstName(),
                     e.getLastName());
         } else {
-            System.out.printf("%s %s is managed by nobody.", e.getFirstName(), e.getLastName());
+            System.out.printf("%s %s is managed by nobody.\n", e.getFirstName(), e.getLastName());
         }
+    }
+
+    public void printEmployeesProject() {
+        for (Employee employee : employees)
+            if (employee instanceof Assignable)
+                ((Assignable) employee).listProjects();
     }
 }

@@ -1,5 +1,9 @@
 package fr.epita.assistants.mycompany;
 
-public class Assignable {
-    
+public interface Assignable {
+    void addProject(String project);
+
+    boolean isAssignedToProject(String project);
+
+    void listProjects();
 }
