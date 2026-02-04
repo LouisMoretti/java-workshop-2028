@@ -30,5 +30,21 @@ public class RecursiveTaskTest {
         assertEquals(expected, got, 0.01);
     }
 
-    // Write your tests here ...
+    @Test
+    void exampleOneMatrix() {
+        // Create a Matrix
+        double[][] matrix = new double[][]{
+                new double[]{1}
+        };
+        double expected = 1;
+
+        MyRecursiveTask mrt = new MyRecursiveTask(matrix, 0, matrix[0].length, 0, matrix.length);
+
+        // Fork and join task
+        mrt.fork();
+        double got = mrt.join();
+
+        // Need delta because of 'double' type
+        assertEquals(expected, got, 0.01);
+    }
 }
