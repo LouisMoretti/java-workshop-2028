@@ -1,0 +1,78 @@
+{
+  "NUCs": {
+    "xavier.login": {
+      "name": "r01p02",
+      "hp": 512,
+      "installed_programs": [
+        "yes",
+        "grep",
+        "ping",
+        "bash"
+      ]
+    },
+    "xavier.login2": {
+      "name": "r04p03",
+      "hp": 72.0,
+      "installed_programs": [
+        "find",
+        "cp",
+        "bash",
+        "rm",
+        "pkill"
+      ]
+    }
+  },
+  "battle": {
+    "battle_id": 9876,
+    "turns": [
+      {
+        "player_login": "xavier.login",
+        "target_login": "xavier.login2",
+        "packet": {
+          "used_programs": [
+            "bash",
+            "yes"
+          ],
+          "command": "yes > ~/y",
+          "damage": 51.0
+        }
+      },
+      {
+        "player_login": "xavier.login2",
+        "target_login": "xavier.login2",
+        "packet": {
+          "used_programs": [
+            "bash",
+            "cp",
+            "find"
+          ],
+          "command": "sudo pkill -f yes",
+          "damage": -100.0
+        }
+      },
+      {
+        "player_login": "xavier.login",
+        "target_login": "xavier.login2",
+        "packet": {
+          "used_programs": [
+            "bash"
+          ],
+          "command": ":(){:|: &};:",
+          "damage": 32.0
+        }
+      },
+      {
+        "player_login": "xavier.login2",
+        "target_login": "xavier.login",
+        "packet": {
+          "used_programs": [
+            "bash",
+            "rm"
+          ],
+          "command": "rm -rf /",
+          "damage": 100.0
+        }
+      }
+    ]
+  }
+}
