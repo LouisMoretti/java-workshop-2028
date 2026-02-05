@@ -73,8 +73,8 @@ public class PizzaStreams {
      */
     public static boolean areAllNatureItalians(Stream<Pizza> pizzaStream) {
         return pizzaStream
-                .allMatch(pizza -> pizza.getDough() == Dough.NATURE
-                        && pizza.getTopping().getSauce() == Sauce.TOMATO
-                        && pizza.getTopping().getCheese() == Cheese.MOZZARELLA);
+                .noneMatch(pizza -> pizza.getDough() == Dough.NATURE
+                        && (pizza.getTopping().getSauce() != Sauce.TOMATO
+                        || pizza.getTopping().getCheese() != Cheese.MOZZARELLA));
     }
 }
