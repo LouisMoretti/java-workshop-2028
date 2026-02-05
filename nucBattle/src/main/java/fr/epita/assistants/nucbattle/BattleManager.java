@@ -27,88 +27,91 @@ public class BattleManager {
 
     public void computeBattle(String reportPath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode node = mapper.readTree(json);
+            Map<String, Nuc> NUCs = mapper.convertValue(node.get("NUCs"), new TypeReference<Map<String, Nuc>>() {
+            });
 
-        JsonNode node = mapper.readTree(json);
-        Map<String, Nuc> NUCs = mapper.convertValue(node.get("NUCs"), new TypeReference<Map<String, Nuc>>() {
-        });
+            SimpleModule module = new SimpleModule();
+            module.addDeserializer(Turn.class, new TurnDeserializer(NUCs));
+            mapper.registerModule(module);
 
-        SimpleModule module = new SimpleModule();
-        module.addDeserializer(Turn.class, new TurnDeserializer(NUCs));
-        mapper.registerModule(module);
+            List<Turn> turns = mapper.convertValue(node.get("battle").get("turns"), new TypeReference<List<Turn>>() {
+            });
 
-        List<Turn> turns = mapper.convertValue(node.get("battle").get("turns"), new TypeReference<List<Turn>>() {
-        });
-
-        Map<String, Float> outcome = new HashMap<>();
-        for (String name : NUCs.keySet()) {
-            Float hp = NUCs.get(name).getHp();
-            if (hp > 100.)
-                hp = 100F;
-            outcome.put(name, hp);
-        }
-
-        Report report = null;
-
-        // Check if someone already win
-        int alive = 0;
-        String last_player = null;
-        for (String player: outcome.keySet()){
-            if (outcome.get(player) > 0) {
-                alive++;
-                last_player = player;
+            Map<String, Float> outcome = new HashMap<>();
+            for (String name : NUCs.keySet()) {
+                Float hp = NUCs.get(name).getHp();
+                if (hp > 100.)
+                    hp = 100F;
+                outcome.put(name, hp);
             }
-        }
 
-        if (alive == 1) {
-            report = new Report(ReportType.WINNER, last_player, outcome);
-        } else {
-            for (Turn turn : turns) {
-                String playerLogin = turn.getPlayerLogin();
-                String targetLogin = turn.getTargetLogin();
+            Report report = null;
 
-                if (!outcome.containsKey(playerLogin) || !outcome.containsKey(targetLogin)) {
-                    report = new Report(ReportType.ERROR, null, null);
-                    break;
+            // Check if someone already win
+            int alive = 0;
+            String last_player = null;
+            for (String player : outcome.keySet()) {
+                if (outcome.get(player) > 0) {
+                    alive++;
+                    last_player = player;
                 }
+            }
 
-                Packet packet = turn.getPacket();
+            if (alive == 1) {
+                report = new Report(ReportType.WINNER, last_player, outcome);
+            } else {
+                for (Turn turn : turns) {
+                    String playerLogin = turn.getPlayerLogin();
+                    String targetLogin = turn.getTargetLogin();
 
-                Nuc playerNuc = turn.getPlayerNuc();
-                Nuc targetNuc = turn.getTargetNuc();
+                    if (!outcome.containsKey(playerLogin) || !outcome.containsKey(targetLogin)) {
+                        report = new Report(ReportType.ERROR, null, null);
+                        break;
+                    }
 
-                // Check used program
-                List<String> usedPrograms = packet.getUsedPrograms();
-                if (!playerNuc.getInstalledPrograms().containsAll(usedPrograms)) {
-                    report = new Report(ReportType.CHEATER, playerLogin, null);
-                    break;
-                }
+                    Packet packet = turn.getPacket();
 
-                Float newHp = outcome.get(targetLogin) - packet.getDamage();
-                if (newHp < 0F) newHp = 0F;
-                if (newHp > 100F) newHp = 100F;
+                    Nuc playerNuc = turn.getPlayerNuc();
+                    Nuc targetNuc = turn.getTargetNuc();
 
-                outcome.put(targetLogin, newHp);
+                    // Check used program
+                    List<String> usedPrograms = packet.getUsedPrograms();
+                    if (!playerNuc.getInstalledPrograms().containsAll(usedPrograms)) {
+                        report = new Report(ReportType.CHEATER, playerLogin, null);
+                        break;
+                    }
 
-                alive = 0;
-                last_player = null;
-                for (String player: outcome.keySet()){
-                    if (outcome.get(player) > 0) {
-                        alive++;
-                        last_player = player;
+                    Float newHp = outcome.get(targetLogin) - packet.getDamage();
+                    if (newHp < 0F) newHp = 0F;
+                    if (newHp > 100F) newHp = 100F;
+
+                    outcome.put(targetLogin, newHp);
+
+                    alive = 0;
+                    last_player = null;
+                    for (String player : outcome.keySet()) {
+                        if (outcome.get(player) > 0) {
+                            alive++;
+                            last_player = player;
+                        }
+                    }
+
+                    if (alive == 1) {
+                        report = new Report(ReportType.WINNER, last_player, outcome);
+                        break;
                     }
                 }
-
-                if (alive == 1) {
-                    report = new Report(ReportType.WINNER, last_player, outcome);
-                    break;
-                }
             }
-        }
 
-        if (report == null)
-            report = new Report(ReportType.UNFINISHED, null, outcome);
+            if (report == null)
+                report = new Report(ReportType.UNFINISHED, null, outcome);
 
 //        mapper = new ObjectMapper();
-        mapper.writeValue(new File(reportPath), report);
+            mapper.writeValue(new File(reportPath), report);
+        } catch (Exception e) {
+            mapper.writeValue(new File(reportPath), new Report(ReportType.ERROR, null, null));
+        }
     }
 }

@@ -4,12 +4,6 @@
       "name": "r01p02",
       "hp": 64.1,
       "installed_programs": [
-        "yes",
-        "grep",
-        "pkill",
-        "ping",
-        "bash"
-      ]
     },
     "xavier.login2": {
       "name": "r04p03",
