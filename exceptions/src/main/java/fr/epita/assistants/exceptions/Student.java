@@ -1,5 +1,8 @@
 package fr.epita.assistants.exceptions;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Student {
     String name;
     int age;
@@ -17,10 +20,10 @@ public class Student {
 
         major = major.toUpperCase();
 
-        for (String majorLUT : majorsLUT)
-//            if (majorLUT.compareTo(major) == 0)
-            if (majorLUT == major)
-                throw new InvalidMajorException(major);
+        String finalMajor = major;
+        if (Arrays.stream(majorsLUT).noneMatch(majorLUT -> majorLUT.equals(finalMajor))) {
+            throw new InvalidMajorException(major);
+        }
 
         this.name = name;
         this.age = age;
