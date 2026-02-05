@@ -27,7 +27,7 @@ public class TurnDeserializer extends JsonDeserializer<Turn> {
         String targetLogin = node.get("target_login").asText();
 
         ObjectMapper mapper = new ObjectMapper();
-        Packet packet = mapper.convertValue(jsonParser, new TypeReference<Packet>() {});
+        Packet packet = mapper.convertValue(node.get("packet"), Packet.class);
 
         return new Turn(NUCs.get(playerLogin), playerLogin, NUCs.get(targetLogin), targetLogin, packet);
     }
