@@ -18,11 +18,13 @@ public class Student {
         if (age <= 0 || age >= 130)
             throw new InvalidAgeException(age);
 
+        String majorSave = major;
         major = major.toUpperCase();
 
         String finalMajor = major;
+
         if (Arrays.stream(majorsLUT).noneMatch(majorLUT -> majorLUT.equals(finalMajor))) {
-            throw new InvalidMajorException(major);
+            throw new InvalidMajorException(majorSave);
         }
 
         this.name = name;
