@@ -17,11 +17,13 @@ public class Country {
     String inputFile;
     Map<String, Integer> travelTimes;
 
-    public Country(String countryName, String countryZone, String inputFilePath) {
+    public Country(String countryName, String countryZone, String inputFilePath) throws IOException {
         this.countryName = countryName;
         this.zoneId = ZoneId.of(countryZone);
         this.inputFile = inputFilePath;
         this.travelTimes = new HashMap<>();
+
+        this.travelTimes = initTravelTimes(inputFilePath);
     }
 
     public Map<String, Integer> initTravelTimes(String inputFilePath) throws IOException {
