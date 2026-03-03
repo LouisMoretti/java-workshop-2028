@@ -15,7 +15,7 @@ public class Country {
     String countryName;
     ZoneId zoneId;
     String inputFile;
-    Map<String, Integer> travelTimes;
+    public Map<String, Integer> travelTimes;
 
     public Country(String countryName, String countryZone, String inputFilePath) throws IOException {
         this.countryName = countryName;
