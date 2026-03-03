@@ -25,7 +25,7 @@ public class Country {
     }
 
     public Map<String, Integer> initTravelTimes(String inputFilePath) throws IOException {
-        CSVReader csv = new CSVReader(new FileReader(inputFile), ',');
+        CSVReader csv = new CSVReader(new FileReader(inputFilePath), ',');
 
         String[] line = null;
         while ((line = csv.readNext()) != null) {
