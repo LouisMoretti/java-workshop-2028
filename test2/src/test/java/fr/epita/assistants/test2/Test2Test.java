@@ -2,6 +2,7 @@ package fr.epita.assistants.test2;
 
 import fr.epita.assistants.server.MyServer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.io.IOException;
 
@@ -59,6 +60,13 @@ public class Test2Test {
     }
 
     @Test
+    @Timeout(1)
+    void testTriboHardTimeout()
+    {
+        assertEquals(1714397773144522752L, Test2.tribonacci(Integer.MAX_VALUE));
+    }
+
+    @Test
     void testTriboError()
     {
         assertThrows(IllegalArgumentException.class, () -> Test2.tribonacci(-6767));
@@ -66,6 +74,22 @@ public class Test2Test {
 
     @Test
     void testServBasic()
+    {
+        try {
+            MyServer.launchServer();
+
+            assertEquals(200, Test2.serverGetResponseCode());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            MyServer.stopServer();
+        }
+    }
+
+    @Test
+    @Timeout(1)
+    void testServBasicTimeout()
     {
         try {
             MyServer.launchServer();
