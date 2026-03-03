@@ -20,7 +20,7 @@ public class GradeHandler {
      * @return {@code true} (as specified by {@link List#add})
      */
     public boolean addActivity(Activity activity) {
-        // FIXME
+        return activities.add(activity);
     }
 
     /**
@@ -28,7 +28,7 @@ public class GradeHandler {
      * @return {@code true} (as specified by {@link List#add})
      */
     public boolean addStudent(Student student) {
-        // FIXME
+        return students.add(student);
     }
 
     /**
@@ -37,7 +37,10 @@ public class GradeHandler {
      * @throws EntryNotFoundException No known {@link Student} with the given name
      */
     public Student getStudent(String name) throws EntryNotFoundException {
-        // FIXME
+        if (students.stream().noneMatch(student -> student.name().equals(name)))
+            throw new EntryNotFoundException(Student.class, name);
+
+        return students.stream().filter(student -> student.name().equals(name)).findFirst().get();
     }
 
     /**
@@ -47,7 +50,8 @@ public class GradeHandler {
      * @throws EntryNotFoundException No known {@link Student} with the given name
      */
     public boolean addGradeToStudent(Grade grade, String name) throws EntryNotFoundException {
-        // FIXME
+        Student s = getStudent(name);
+        return s.grades().add(grade);
     }
 
     /**
@@ -56,7 +60,9 @@ public class GradeHandler {
      * @throws EntryNotFoundException No known {@link Student} with the given name
      */
     public Student removeStudent(String name) throws EntryNotFoundException {
-        // FIXME
+        Student s = getStudent(name);
+        students.remove(s);
+        return s;
     }
 
     /**
@@ -65,7 +71,8 @@ public class GradeHandler {
      * @throws EntryNotFoundException No known {@link Student} with the given name
      */
     public void updateStudent(String name, Function<Student, Student> function) throws EntryNotFoundException {
-        // FIXME
+        Student s = removeStudent(name);
+        students.add(function.apply(s));
     }
 
     /**
@@ -75,6 +82,11 @@ public class GradeHandler {
      * @throws EntryNotFoundException No known {@link Student} with the given name
      */
     public double getStudentAverageInSubject(String name, Subject subject) throws EntryNotFoundException {
-        // FIXME
+        Student s = getStudent(name);
+
+        var grades = s.grades().stream().filter(grade -> grade.activity().subject().equals(subject));
+        var copy = s.grades().stream().filter(grade -> grade.activity().subject().equals(subject));
+
+        return grades.mapToDouble(Grade::grade).sum() / copy.count();
     }
 }
