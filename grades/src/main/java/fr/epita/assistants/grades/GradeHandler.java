@@ -87,6 +87,6 @@ public class GradeHandler {
         var grades = s.grades().stream().filter(grade -> grade.activity().subject().equals(subject));
         var copy = s.grades().stream().filter(grade -> grade.activity().subject().equals(subject));
 
-        return grades.mapToDouble(grade -> grade.grade() * grade.activity().weight()).sum() / copy.count();
+        return grades.mapToDouble(grade -> grade.grade() * grade.activity().weight()).sum() / copy.mapToDouble(grade -> grade.activity().weight()).sum();
     }
 }
